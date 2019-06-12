@@ -81,13 +81,12 @@ public class DisplayData : MonoBehaviour {
 
 
 
-    deviceList = new ArrayList();
+    	deviceList = new ArrayList();
 		displayedStrArr = new ArrayList();
 		rectX = Screen.width / 10;
 		rectY = Screen.height / 3;
 		rectWidth = Screen.width * 8 / 10;
 		rectHeight = Screen.height / 4;
-			
 		
 	}
 
@@ -175,6 +174,14 @@ public class DisplayData : MonoBehaviour {
 		Blink = value;
 	}
 
+	public int GetBlinkValue () {
+		return Blink;
+	}
+
+	public int GetAttetionValue () {
+		return Attention;
+	}
+
 
 	void OnUpdateDeviceInfo(string deviceInfo){
 		//deviceFound deviceInfo = NSF4F1BF;MindWave Mobile;BAFCEB11-2DB6-70B3-B038-B4AD2EFC6309
@@ -209,6 +216,16 @@ public class DisplayData : MonoBehaviour {
 		}
 
 		#endif
+
+		if (Blink > 100 && transform.position.y <= 4)
+			transform.position += new Vector3(transform.position.x, 4, 0);
+		else
+			transform.position += new Vector3(transform.position.x, 0, 0);
+
+		if (Attention > 75 && transform.position.x <= 2)
+			transform.position += new Vector3(2, transform.position.y, 0);
+		else
+			transform.position += new Vector3(0, transform.position.y, 0);
 	}
 	
 	/**
@@ -225,6 +242,7 @@ public class DisplayData : MonoBehaviour {
 	}
 	
 	void OnGUI(){
+		GUI.color = Color.black;
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Demo App");
 		GUILayout.Space(Screen.width-250);
